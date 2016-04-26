@@ -19,6 +19,23 @@ $stmt->execute();
  //5.都道府県名取得
 $area_name = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// 6.友達一覧を取得するSQL文作成
+$sql = 'SELECT * FROM `friends` WHERE `area_id` = ' . $area_id;
+
+var_dump($sql);
+
+// 7.SQL実行
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
+// 友達データ格納用Array
+$friends = array();
+
+// while (1) {
+//   // データ取得
+
+// }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
