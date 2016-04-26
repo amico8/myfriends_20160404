@@ -30,7 +30,6 @@ while (1) {
 // 5.データベース切断
 $dbh = null;
 
-var_dump($areas);
 ?>
 
 <!DOCTYPE html>
@@ -93,31 +92,13 @@ var_dump($areas);
           </thead>
           <tbody>
             <!-- id, 県名を表示 -->
+            <?php foreach ($areas as $area) { ?>
             <tr>
               <td><div class="text-center">1</div></td>
-              <td><div class="text-center"><a href="show.html">北海道</a></div></td>
+              <td><div class="text-center"><a href="show.html"><?php echo $area['area_name']; ?></a></div></td>
               <td><div class="text-center">3</div></td>
             </tr>
-            <tr>
-              <td><div class="text-center">2</div></td>
-              <td><div class="text-center"><a href="show.html">青森</a></div></td>
-              <td><div class="text-center">7</div></td>
-            </tr>
-            <tr>
-              <td><div class="text-center">3</div></td>
-              <td><div class="text-center"><a href="show.html">岩手</a></div></td>
-              <td><div class="text-center">2</div></td>
-            </tr>
-            <tr>
-              <td><div class="text-center">4</div></td>
-              <td><div class="text-center"><a href="show.html">宮城</a></div></td>
-              <td><div class="text-center">6</div></td>
-            </tr>
-            <tr>
-              <td><div class="text-center">5</div></td>
-              <td><div class="text-center"><a href="show.html">秋田</a></div></td>
-              <td><div class="text-center">8</div></td>
-            </tr>
+            <?php } ?>
           </tbody>
         </table>
       </div>
