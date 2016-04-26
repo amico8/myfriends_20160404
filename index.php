@@ -94,7 +94,7 @@ $dbh = null;
             <!-- id, 県名を表示 -->
             <?php foreach ($areas as $area) { ?>
             <tr>
-              <td><div class="text-center">1</div></td>
+              <td><div class="text-center"><?php echo $area['area_id']; ?></div></td>
               <td><div class="text-center"><a href="show.html"><?php echo $area['area_name']; ?></a></div></td>
               <td><div class="text-center">3</div></td>
             </tr>
