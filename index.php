@@ -1,3 +1,38 @@
+<?php
+
+// 1.DB接続準備
+$dsn = 'mysql:dbname=myfriends;host=localhost';
+$user = 'root';
+$password = '';
+$dbh = new PDO($dsn, $user, $password);
+$dbh->query('SET NAMES utf8');
+
+// 2.SQL文作成
+$sql = 'SELECT * FROM `areas`';
+
+// 3.SQL実行
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
+// 4.SQL実行結果取得
+// 取得データ格納用Array
+$areas = array();
+
+while (1) {
+  // データを取得
+  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+  if ($rec == false) {
+    break;
+  }
+  $areas[] = $rec;
+}
+
+// 5.データベース切断
+$dbh = null;
+
+var_dump($areas);
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
