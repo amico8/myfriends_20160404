@@ -29,13 +29,27 @@ $stmt->execute();
 // 友達データ格納用Array
 $friends = array();
 
+// 男女カウント用変数
+$male = 0;
+$female = 0;
+
 while (1) {
   // データ取得
   $rec = $stmt->fetch(PDO::FETCH_ASSOC);
   if ($rec == false) {
     break;
   }
+  // データ格納
   $friends[] = $rec;
+
+  // 男女カウント
+  if ($rec['gender'] == 1) {
+    // 男性の数
+    $male++;
+  } else if ($rec['gender'] == 2) {
+    // 女性の数
+    $female++;
+  }
 }
 
 // DB切断
@@ -92,7 +106,7 @@ $dbh = null;
     <div class="row">
       <div class="col-md-4 content-margin-top">
       <legend><?php echo $area_name['area_name']; ?>の友達</legend>
-      <div class="well">男性：2名　女性：1名</div>
+      <div class="well">男性：<?php echo $male; ?>名　女性：<?php echo $female; ?>名</div>
         <table class="table table-striped table-hover table-condensed">
           <thead>
             <tr>
