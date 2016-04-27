@@ -22,8 +22,6 @@ $area_name = $stmt->fetch(PDO::FETCH_ASSOC);
 // 6.友達一覧を取得するSQL文作成
 $sql = 'SELECT * FROM `friends` WHERE `area_id` = ' . $area_id;
 
-var_dump($sql);
-
 // 7.SQL実行
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
@@ -31,11 +29,17 @@ $stmt->execute();
 // 友達データ格納用Array
 $friends = array();
 
-// while (1) {
-//   // データ取得
+while (1) {
+  // データ取得
+  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+  if ($rec == false) {
+    break;
+  }
+  $friends[] = $rec;
+}
 
-// }
-
+// DB切断
+$dbh = null;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -98,8 +102,9 @@ $friends = array();
           </thead>
           <tbody>
             <!-- 友達の名前を表示 -->
+            <?php foreach ($friends as $friend) { ?>
             <tr>
-              <td><div class="text-center">山田　太郎</div></td>
+              <td><div class="text-center"><?php echo $friend['friend_name']; ?></div></td>
               <td>
                 <div class="text-center">
                   <a href="edit.html"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -107,24 +112,7 @@ $friends = array();
                 </div>
               </td>
             </tr>
-            <tr>
-              <td><div class="text-center">小林　花子</div></td>
-              <td>
-                <div class="text-center">
-                  <a href="edit.html"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <a href="javascript:void(0);" onclick="destroy();"><i class="fa fa-trash"></i></a>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><div class="text-center">佐藤　健</div></td>
-              <td>
-                <div class="text-center">
-                  <a href="edit.html"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <a href="javascript:void(0);" onclick="destroy();"><i class="fa fa-trash"></i></a>
-                </div>
-              </td>
-            </tr>
+            <?php } ?>
           </tbody>
         </table>
 
