@@ -1,3 +1,33 @@
+<?php
+// DB接続準備
+$dsn = 'mysql:dbname=myfriends;host=localhost';
+$user = 'root';
+$password = '';
+$dbh = new PDO($dsn,$user,$password);
+$dbh->query('SET NAMES utf8');
+
+// 1.セレクトボックス用のSQLを作成
+$sql = 'SELECT * FROM `areas`';
+
+// 2.SQL実行
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
+// 3.取得データ格納用Array
+$areas = Array();
+
+// 4.データを取得して格納
+while (1) {
+  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+  if ($rec == false) {
+    break;
+  }
+  $areas[] = $rec;
+}
+
+// データベース切断
+$dbh = null;
+?>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -32,7 +62,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="index.html"><span class="strong-title"><i class="fa fa-facebook-square"></i> My friends</span></a>
+              <a class="navbar-brand" href="index.php"><span class="strong-title"><i class="fa fa-facebook-square"></i> My friends</span></a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
