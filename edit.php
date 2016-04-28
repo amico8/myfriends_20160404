@@ -1,3 +1,28 @@
+<?php
+// DB接続準備
+$dsn = 'mysql:dbname=myfriends;host=localhost';
+$user = 'root';
+$password = '';
+$dbh = new PDO($dsn,$user,$password);
+$dbh->query('SET NAMES utf8');
+
+// パラメータを受け取る
+$friend_id = $_GET['friend_id'];
+
+// 受け取ったパラメータに紐づく友達のデータ取得用SQL文作成
+$sql = 'SELECT * FROM `friends` WHERE `friend_id` = ' . $friend_id;
+
+// SQLを実行
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
+// 友達のデータ取得
+$friends = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// DB切断
+$dbh = null;
+
+?>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -53,7 +78,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">名前</label>
               <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" placeholder="山田　太郎" value="山田　太郎">
+                <input type="text" name="name" class="form-control" placeholder="山田　太郎" value="<?php echo $friends['friend_name']; ?>">
               </div>
             </div>
             <!-- 出身 -->
