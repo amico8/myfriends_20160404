@@ -19,6 +19,25 @@ $stmt->execute();
 // 友達のデータ取得
 $friends = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// セレクトボックスの都道府県を取得
+$sql = 'SELECT * FROM `areas`';
+
+// SQLを実行
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
+// 取得データ格納用Array
+$areas = Array();
+
+// データを取得して格納
+while (1) {
+  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+  if ($rec == false) {
+    break;
+  }
+  $areas[] = $rec;
+}
+
 // DB切断
 $dbh = null;
 
@@ -87,11 +106,13 @@ $dbh = null;
               <div class="col-sm-10">
                 <select class="form-control" name="area_id">
                   <option value="0">出身地を選択</option>
-                  <option value="1" selected>北海道</option>
-                  <option value="2">青森</option>
-                  <option value="3">岩手</option>
-                  <option value="4">宮城</option>
-                  <option value="5">秋田</option>
+                  <?php foreach ($areas as $area) { ?>
+                    <?php if ($area['area_id'] == $friends['area_id']) { ?>
+                    <option value="<?php echo $area['area_id']; ?>" selected><?php echo $area['area_name']; ?></option>
+                    <?php } else { ?>
+                    <option value="<?php echo $area['area_id']; ?>"><?php echo $area['area_name']; ?></option>
+                    <?php } ?>
+                  <?php } ?>
                 </select>
               </div>
             </div>
