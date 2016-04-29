@@ -101,8 +101,13 @@ $dbh = null;
               <div class="col-sm-10">
                 <select class="form-control" name="gender">
                   <option value="0">性別を選択</option>
-                  <option value="1" selected>男性</option>
-                  <option value="2">女性</option>
+                  <?php if ($friends['gender'] == 1) { ?>
+                    <option value="1" selected>男性</option>
+                    <option value="2">女性</option>
+                  <?php } else if ($friends['gender'] == 2) {?>
+                    <option value="1">男性</option>
+                    <option value="2" selected>女性</option>
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -110,7 +115,7 @@ $dbh = null;
             <div class="form-group">
               <label class="col-sm-2 control-label">年齢</label>
               <div class="col-sm-10">
-                <input type="text" name="age" class="form-control" placeholder="例：27" value="27">
+                <input type="text" name="age" class="form-control" placeholder="例：27" value="<?php echo $friends['age']; ?>">
               </div>
             </div>
 
