@@ -78,10 +78,10 @@ $dbh = null;
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-      function destroy() {
+      function destroy(friend_id) {
         if (confirm('削除しますか？') == true){
           // OKボタンをおした時
-          location.href = 'show.php';
+          location.href = 'show.php?action=delete&friend_id=' + friend_id;
           return true;
         } else {
           // キャンセルボタンをおした時
@@ -133,7 +133,7 @@ $dbh = null;
               <td>
                 <div class="text-center">
                   <a href="edit.php?friend_id=<?php echo $friend['friend_id']; ?>"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <a href="javascript:void(0);" onclick="destroy();"><i class="fa fa-trash"></i></a>
+                  <a href="javascript:void(0);" onclick="destroy(<?php echo $friend['friend_id']; ?>);"><i class="fa fa-trash"></i></a>
                 </div>
               </td>
             </tr>
